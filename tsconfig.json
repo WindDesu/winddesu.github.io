@@ -1,0 +1,26 @@
+{
+  // "include": ["./src/Blob.ts", "./src/Discord/Modules/*.ts"],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "exclude": ["./node_modules/**"],
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "declaration": true,
+    "jsx": "react",
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "outDir": "dist/",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "baseUrl": "src",
+    "paths": {
+      "@Components/*": ["Components/*"],
+      "@Components/Social": ["Components/Exports/Social"],
+      "@Icons": ["Icons"],
+      "@Silicon": ["Silicon"],
+      "@Static/*": ["Static/*"],
+      "@Util/*": ["Util/*"]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+#root, body, html {
+    height: 100%;
+    background: #073642;
+    color: #93a1a1;
+    overflow: hidden;
+}
