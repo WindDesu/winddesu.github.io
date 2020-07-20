@@ -24,9 +24,9 @@
     "build": "npx webpack -d --env.NODE_ENV=development",
     "build:prod": "npx webpack -p --env.NODE_ENV=production",
     "check": "tsc --noEmit",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist -b master",
     "lint": "eslint -c .eslintrc.json --ext .ts,.tsx src",
-    "predeploy": "npm build:prod",
+    "predeploy": "yarn build:prod",
     "server": "npx webpack-dev-server -d --env.NODE_ENV=development"
   },
   "dependencies": {
