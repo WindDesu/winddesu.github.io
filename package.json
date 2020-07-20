@@ -14,17 +14,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MoeLava/Silicon.git"
+    "url": "git+https://github.com/LavaDesu/Silicon.git"
   },
   "bugs": {
-    "url": "https://github.com/MoeLava/Silicon/issues"
+    "url": "https://github.com/LavaDesu/Silicon/issues"
   },
-  "homepage": "https://github.com/MoeLava/Silicon#readme",
+  "homepage": "https://lava.moe",
   "scripts": {
     "build": "npx webpack -d --env.NODE_ENV=development",
     "build:prod": "npx webpack -p --env.NODE_ENV=production",
     "check": "tsc --noEmit",
+    "deploy": "gh-pages -d build",
     "lint": "eslint -c .eslintrc.json --ext .ts,.tsx src",
+    "predeploy": "npm build:prod",
     "server": "npx webpack-dev-server -d --env.NODE_ENV=development"
   },
   "dependencies": {
@@ -50,6 +52,7 @@
     "eslint-plugin-prefer-arrow": "^1.2.1",
     "eslint-plugin-unicorn": "^19.0.1",
     "file-loader": "^6.0.0",
+    "gh-pages": "^3.1.0",
     "html-webpack-externals-plugin": "^3.8.0",
     "html-webpack-plugin": "^4.3.0",
     "react-hot-loader": "^4.12.21",
