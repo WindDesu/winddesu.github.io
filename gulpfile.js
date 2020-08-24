@@ -33,7 +33,7 @@ const ghDeploy = cb => {
     require('child_process').exec('git rev-parse HEAD', (err, stdout) => {
         ghpages.publish("dist", {
             branch: "master",
-            message: "LavaDesu/lavadesu.github.io@" + stdout.trim()
+            message: "Compiled LavaDesu/lavadesu.github.io@" + stdout.trim()
         }, cb);
     });
 };
