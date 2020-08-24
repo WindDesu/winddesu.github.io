@@ -19,9 +19,8 @@
   "homepage": "https://lava.moe",
   "scripts": {
     "build": "gulp",
-    "deploy": "gh-pages -d dist -b master",
+    "deploy": "gulp deploy",
     "lint": "eslint -c .eslintrc.json --ext .js src",
-    "predeploy": "gulp && gulp ghDeploy",
     "watch": "gulp && gulp watch"
   },
   "dependencies": {},

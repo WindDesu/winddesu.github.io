@@ -10,6 +10,7 @@ const uglify = require('gulp-uglify');
 
 const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
+const ghpages = require('gh-pages');
 
 const assets = () => pipeline(
     gulp.src("src/assets/**"),
@@ -27,7 +28,17 @@ const html = () => pipeline(
     gulp.dest("dist")
 );
 
-const ghDeploy = cb => fs.writeFile("dist/CNAME", "lava.moe", cb);
+const ghCNAME = cb => fs.writeFile("dist/CNAME", "lava.moe", cb);
+const ghDeploy = cb => {
+    require('child_process').exec('git rev-parse HEAD', (err, stdout) => {
+        console.log(stdout);
+        ghpages.publish("dist", {
+            branch: "master",
+            message: stdout.trim(),
+            push: false
+        }, cb);
+    });
+};
 
 const script = () => pipeline(
     gulp.src("src/**/*.js"),
@@ -45,14 +56,19 @@ const style = () => pipeline(
     gulp.dest("dist")
 );
 
+const build = gulp.series(clean, gulp.parallel(assets, html, script, style));
+const deploy = gulp.series(build, ghCNAME, ghDeploy);
+
 module.exports = {
     assets,
     clean,
+    deploy,
     html,
+    ghCNAME,
     ghDeploy,
     script,
     style,
-    default: gulp.series(clean, gulp.parallel(assets, html, script, style)),
+    default: build,
     watch: () => {
         gulp.watch("src/assets/**", assets);
         gulp.watch("src/**/*.html", html);
