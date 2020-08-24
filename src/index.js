@@ -14,8 +14,8 @@ class Particle {
         ];
         this.pos = this.initial.slice(0);
         this.velocity = [
-            Math.random() * 0.4 - 0.1,
-            Math.random() * 0.4 - 0.1
+            Math.random() * 0.4 - 0.2,
+            Math.random() * 0.4 - 0.2
         ];
         this.ctx = canvas.getContext("2d");
     }

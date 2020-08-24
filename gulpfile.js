@@ -31,10 +31,9 @@ const html = () => pipeline(
 const ghCNAME = cb => fs.writeFile("dist/CNAME", "lava.moe", cb);
 const ghDeploy = cb => {
     require('child_process').exec('git rev-parse HEAD', (err, stdout) => {
-        console.log(stdout);
         ghpages.publish("dist", {
             branch: "master",
-            message: stdout.trim()
+            message: "LavaDesu/lavadesu.github.io@" + stdout.trim()
         }, cb);
     });
 };
