@@ -1,4 +1,5 @@
 const gulp = require("gulp");
+const fs = require("fs");
 const { pipeline } = require('readable-stream');
 
 const babel = require("gulp-babel");
@@ -26,6 +27,8 @@ const html = () => pipeline(
     gulp.dest("dist")
 );
 
+const ghDeploy = cb => fs.writeFile("dist/CNAME", "lava.moe", cb);
+
 const script = () => pipeline(
     gulp.src("src/**/*.js"),
     babel(),
@@ -46,6 +49,7 @@ module.exports = {
     assets,
     clean,
     html,
+    ghDeploy,
     script,
     style,
     default: gulp.series(clean, gulp.parallel(assets, html, script, style)),
