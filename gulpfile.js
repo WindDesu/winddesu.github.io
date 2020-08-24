@@ -34,8 +34,7 @@ const ghDeploy = cb => {
         console.log(stdout);
         ghpages.publish("dist", {
             branch: "master",
-            message: stdout.trim(),
-            push: false
+            message: stdout.trim()
         }, cb);
     });
 };
