@@ -21,7 +21,8 @@
     "build": "gulp",
     "deploy": "gh-pages -d dist -b master",
     "lint": "eslint -c .eslintrc.json --ext .js src",
-    "predeploy": "yarn build && gulp ghDeploy"
+    "predeploy": "gulp && gulp ghDeploy",
+    "watch": "gulp && gulp watch"
   },
   "dependencies": {},
   "devDependencies": {
