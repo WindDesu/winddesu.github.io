@@ -2,7 +2,7 @@
 
 let globalMultiplier = 1;
 
-const presets = [
+window.presets = [
     { // index 0
         name: "Slow",
         velocity: 0.1,
@@ -101,10 +101,6 @@ const presets = [
     }
 ];
 
-const preset = Math.floor(Math.random() * presets.length);
-const config = presets[preset];
-console.log(`preset ${preset} - ${config.name}`);
-
 const concat = (arr1, arr2, cb) => arr1.map((e, i) => cb(e, arr2[i]));
 const merge = (arr1, arr2) => concat(arr1, arr2, (a, b) => a + b);
 
@@ -201,41 +197,52 @@ class Particle {
 
 window.particles = [];
 const canvas = document.getElementById("bg");
+let si = 0;
 
-if (canvas.getContext) {
-    let i = 0;
-    for (; i < config.particles; i++)
+window.initParticles = index => {
+    if (index < 0 || index >= presets.length)
+        return console.log("bruh");
+
+    window.particles = [];
+    si = 0;
+    window.config = presets[index];
+    console.log(`preset ${index} - ${config.name}`);
+
+    for (let i = 0; i < config.particles; i++)
         particles.push(new Particle());
 
-    i = 0;
-    const init = () => {
-        if (i >= config.particles)
-            return;
-        particles[i].start();
-        setTimeout(init, Math.random() * config.delayPer + config.delayAll / config.particles);
-        i++;
-    };
-    setTimeout(init, 450);
+    setTimeout(start, 450);
+};
 
-    let prev = 0;
-    const render = t => {
-        if (t < 500) {
-            globalMultiplier = (t - prev) / config.rate;
-            prev = t;
-            window.requestAnimationFrame(render);
-            return;
-        }
+const start = () => {
+    if (si >= config.particles)
+        return;
+    particles[si].start();
+    si++;
+    setTimeout(start, Math.random() * config.delayPer + config.delayAll / config.particles);
+};
 
-        if (canvas.clientHeight !== window.innerHeight)
-            canvas.setAttribute("height", window.innerHeight);
-        if (canvas.clientWidth !== window.innerWidth)
-            canvas.setAttribute("width", window.innerWidth);
-
-        canvas.getContext("2d").clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-        particles.forEach(part => part.draw());
-
+let prev = 0;
+const render = t => {
+    if (t < 500) {
+        globalMultiplier = (t - prev) / config.rate;
+        prev = t;
         window.requestAnimationFrame(render);
-    };
+        return;
+    }
 
-    render();
+    if (canvas.clientHeight !== window.innerHeight)
+        canvas.setAttribute("height", window.innerHeight);
+    if (canvas.clientWidth !== window.innerWidth)
+        canvas.setAttribute("width", window.innerWidth);
+
+    canvas.getContext("2d").clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+    particles.forEach(part => part.draw());
+
+    window.requestAnimationFrame(render);
+};
+
+if (canvas.getContext) {
+    initParticles(Math.floor(Math.random() * presets.length));
+    window.requestAnimationFrame(render);
 }
