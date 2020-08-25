@@ -90,8 +90,8 @@ const presets = [
         lifespan: 300,
         lifespanBase: 100,
         lifeOpacity: 0.1,
-        opacityMultiplier: 0.9,
-        size: 2,
+        opacityMultiplier: 1,
+        size: 2.2,
         rainbow: true,
 
         particles: 250,
