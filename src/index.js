@@ -212,6 +212,8 @@ const initParticles = index => {
 
     for (let i = 0; i < config.particles; i++)
         particles.push(new Particle());
+
+    start();
 };
 
 const start = () => {
@@ -235,7 +237,7 @@ const render = t => {
     } else if (!isSet) {
         averagemspt = samples.reduce((a, b) => a + b) / samples.length;
         globalMultiplier = averagemspt / config.rate;
-        start();
+        initParticles(Math.floor(Math.random() * presets.length));
         isSet = true;
     }
 
@@ -251,10 +253,8 @@ const render = t => {
 };
 
 window.onload = () => {
-    if (canvas.getContext) {
-        initParticles(Math.floor(Math.random() * presets.length));
+    if (canvas.getContext)
         window.requestAnimationFrame(render);
-    }
 }
 
 // Listeners
