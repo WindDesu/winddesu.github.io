@@ -227,7 +227,8 @@ let isSet = false;
 let samples = [];
 const render = t => {
     if (samples.length < 20) {
-        samples.push(t - prev);
+        if (prev !== 0)
+            samples.push(t - prev);
         prev = t;
         window.requestAnimationFrame(render);
         return;
