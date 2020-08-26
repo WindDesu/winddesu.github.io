@@ -1,9 +1,9 @@
 // Main config!
 
+let averagemspt = 0;
 let globalMultiplier = 1;
 
-window.presets = [
-    { // index 0
+const presets = [{ // index 0
         name: "Slow",
         velocity: 0.1,
         gradient: 2,
@@ -100,6 +100,7 @@ window.presets = [
         delayPer: 10
     }
 ];
+let config;
 
 const concat = (arr1, arr2, cb) => arr1.map((e, i) => cb(e, arr2[i]));
 const merge = (arr1, arr2) => concat(arr1, arr2, (a, b) => a + b);
@@ -195,23 +196,24 @@ class Particle {
     }
 }
 
-window.particles = [];
+let particles = [];
 const canvas = document.getElementById("bg");
 let si = 0;
 
-window.initParticles = index => {
+const initParticles = index => {
     if (index < 0 || index >= presets.length)
         return console.log("bruh");
 
-    window.particles = [];
+    particles = [];
     si = 0;
-    window.config = presets[index];
+    config = presets[index];
+    globalMultiplier = averagemspt / config.rate;
     console.log(`preset ${index} - ${config.name}`);
 
     for (let i = 0; i < config.particles; i++)
         particles.push(new Particle());
 
-    setTimeout(start, 450);
+    setTimeout(start, 900);
 };
 
 const start = () => {
@@ -223,12 +225,18 @@ const start = () => {
 };
 
 let prev = 0;
+let isSet = false;
+let samples = [];
 const render = t => {
-    if (t < 500) {
-        globalMultiplier = (t - prev) / config.rate;
+    if (t < 1000) {
+        samples.push(t - prev);
         prev = t;
         window.requestAnimationFrame(render);
         return;
+    } else if (!isSet) {
+        averagemspt = samples.reduce((a, b) => a + b) / samples.length;
+        globalMultiplier = averagemspt / config.rate;
+        isSet = true;
     }
 
     if (canvas.clientHeight !== window.innerHeight)
@@ -245,4 +253,14 @@ const render = t => {
 if (canvas.getContext) {
     initParticles(Math.floor(Math.random() * presets.length));
     window.requestAnimationFrame(render);
+}
+
+// Listeners
+
+const cyclePreset = () => {
+    let index = presets.indexOf(config) + 1;
+    if (index >= presets.length)
+        index = 0;
+
+    initParticles(index);
 }
