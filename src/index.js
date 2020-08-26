@@ -250,9 +250,11 @@ const render = t => {
     window.requestAnimationFrame(render);
 };
 
-if (canvas.getContext) {
-    initParticles(Math.floor(Math.random() * presets.length));
-    window.requestAnimationFrame(render);
+window.onload = () => {
+    if (canvas.getContext) {
+        initParticles(Math.floor(Math.random() * presets.length));
+        window.requestAnimationFrame(render);
+    }
 }
 
 // Listeners
