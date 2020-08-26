@@ -212,8 +212,6 @@ const initParticles = index => {
 
     for (let i = 0; i < config.particles; i++)
         particles.push(new Particle());
-
-    setTimeout(start, 900);
 };
 
 const start = () => {
@@ -228,7 +226,7 @@ let prev = 0;
 let isSet = false;
 let samples = [];
 const render = t => {
-    if (t < 1000) {
+    if (samples.length < 20) {
         samples.push(t - prev);
         prev = t;
         window.requestAnimationFrame(render);
@@ -236,6 +234,7 @@ const render = t => {
     } else if (!isSet) {
         averagemspt = samples.reduce((a, b) => a + b) / samples.length;
         globalMultiplier = averagemspt / config.rate;
+        start();
         isSet = true;
     }
 
