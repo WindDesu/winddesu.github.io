@@ -10,7 +10,7 @@ const uglify = require('gulp-uglify');
 
 const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
-const ghpages = require('gh-pages');
+const ghpages = require("gh-pages");
 
 const assets = () => pipeline(
     gulp.src("src/assets/**"),
@@ -43,8 +43,7 @@ const script = () => pipeline(
     babel(),
     uglify({
         mangle: {
-            toplevel: true,
-            properties: true
+            toplevel: true
         }
     }),
     gulp.dest("dist")
