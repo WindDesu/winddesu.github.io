@@ -41,7 +41,12 @@ const ghDeploy = cb => {
 const script = () => pipeline(
     gulp.src("src/**/*.js"),
     babel(),
-    uglify(),
+    uglify({
+        mangle: {
+            toplevel: true,
+            properties: true
+        }
+    }),
     gulp.dest("dist")
 );
 
