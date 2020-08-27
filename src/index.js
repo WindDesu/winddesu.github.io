@@ -258,7 +258,7 @@ window.onload = () => {
 
 // Listeners
 
-const cyclePreset = () => {
+document.getElementById("mainAvatar").onclick = () => {
     let index = presets.indexOf(config) + 1;
     if (index >= presets.length)
         index = 0;
