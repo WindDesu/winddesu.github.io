@@ -226,7 +226,7 @@ const start = () => {
 
 let prev = 0;
 let isSet = false;
-let samples = [];
+const samples = [];
 const render = t => {
     if (samples.length < 20) {
         if (prev !== 0)
@@ -236,7 +236,6 @@ const render = t => {
         return;
     } else if (!isSet) {
         averagemspt = samples.reduce((a, b) => a + b) / samples.length;
-        globalMultiplier = averagemspt / config.rate;
         initParticles(Math.floor(Math.random() * presets.length));
         isSet = true;
     }
@@ -255,7 +254,7 @@ const render = t => {
 window.onload = () => {
     if (canvas.getContext)
         window.requestAnimationFrame(render);
-}
+};
 
 // Listeners
 
@@ -265,4 +264,4 @@ const cyclePreset = () => {
         index = 0;
 
     initParticles(index);
-}
+};
