@@ -68,6 +68,22 @@ const presets = [{ // index 0
         delayPer: 1
     },
     { // index 4
+        name: "Smol",
+        velocity: 0.15,
+        gradient: 15,
+        lifespan: 100,
+        lifespanBase: 50,
+        lifeOpacity: 0.25,
+        opacityMultiplier: 1,
+        size: 1.4,
+        rainbow: true,
+
+        particles: 400,
+        rate: 35, // lower = faster
+        delayAll: 5000,
+        delayPer: 10
+    },
+    { // index 5
         name: "Stars",
         velocity: 0.005,
         gradient: 0,
@@ -83,7 +99,7 @@ const presets = [{ // index 0
         delayAll: 5000,
         delayPer: 10
     },
-    { // index 5
+    { // index 6
         name: "Rainbow stars",
         velocity: 0.005,
         gradient: 0,
@@ -236,7 +252,7 @@ const render = t => {
         return;
     } else if (!isSet) {
         averagemspt = samples.reduce((a, b) => a + b) / samples.length;
-        initParticles(Math.floor(Math.random() * presets.length));
+        initParticles(4);
         isSet = true;
     }
 
